@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f4efe7;
+            --card: #ffffff;
+            --ink: #1f2937;
+            --muted: #6b7280;
+            --accent: #0f766e;
+            --accent-dark: #115e59;
+            --border: #d6d3d1;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+            background: radial-gradient(circle at top, #fff7ed 0%, var(--bg) 42%, #e7eef7 100%);
+            color: var(--ink);
+        }
+
+        .card {
+            width: min(92vw, 420px);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 2rem;
+            box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+        }
+
+        h1 {
+            margin: 0 0 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin: 0 0 1.4rem;
+            color: var(--muted);
+        }
+
+        label {
+            display: block;
+            margin: 0.9rem 0 0.4rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 1.4rem;
+            padding: 0.95rem 1.2rem;
+            border: 0;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .error {
+            margin: 0 0 1rem;
+            color: #b91c1c;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Student Login</h1>
+        <p>Use the credentials created by the superuser to continue.</p>
+
+        {% if error_message %}
+            <div class="error">{{ error_message }}</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Form</title>
+    <style>
+        :root {
+            --bg: #f7f2ea;
+            --card: #ffffff;
+            --ink: #1f2937;
+            --muted: #6b7280;
+            --accent: #c2410c;
+            --accent-2: #9a3412;
+            --border: #e7dccf;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(180deg, #fff8f1 0%, var(--bg) 100%);
+            color: var(--ink);
+            padding: 2rem;
+            display: grid;
+            place-items: center;
+        }
+
+        .card {
+            width: min(100%, 820px);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 2rem;
+            box-shadow: 0 28px 70px rgba(120, 53, 15, 0.12);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+        }
+
+        .back {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 700;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0.9rem 1rem;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(194, 65, 12, 0.12);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .submit {
+            justify-self: start;
+            border: 0;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            padding: 0.95rem 1.4rem;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .errorlist {
+            margin: 0.35rem 0 0;
+            color: #b91c1c;
+            padding-left: 1.2rem;
+        }
+
+        .nonfield {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            color: #991b1b;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 700px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div>
+                <h1>Exam Form</h1>
+                <p>Submit the student information below.</p>
+            </div>
+            <a class="back" href="{% url 'dashboard' %}">Back to dashboard</a>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="grid">
+                <div class="field">
+                    <label for="id_full_name">Full Name</label>
+                    {{ form.full_name }}
+                    {{ form.full_name.errors }}
+                </div>
+                <div class="field">
+                    <label for="id_course">Course</label>
+                    {{ form.course }}
+                    {{ form.course.errors }}
+                </div>
+                <div class="field">
+                    <label for="id_year">Year</label>
+                    {{ form.year }}
+                    {{ form.year.errors }}
+                </div>
+                <div class="field">
+                    <label for="id_phone_number">Phone Number</label>
+                    {{ form.phone_number }}
+                    {{ form.phone_number.errors }}
+                </div>
+            </div>
+            <div class="field">
+                <label for="id_address">Address</label>
+                {{ form.address }}
+                {{ form.address.errors }}
+            </div>
+            <button class="submit" type="submit">Submit Form</button>
+        </form>
+    </div>
+</body>
+</html>

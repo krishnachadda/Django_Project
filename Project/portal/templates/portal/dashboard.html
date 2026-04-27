@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        :root {
+            --bg: #eef2ff;
+            --card: #ffffff;
+            --ink: #111827;
+            --muted: #4b5563;
+            --accent: #2563eb;
+            --accent-2: #1d4ed8;
+            --danger: #b91c1c;
+            --border: #dbe4ff;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 32%),
+                radial-gradient(circle at bottom right, rgba(99, 102, 241, 0.16), transparent 28%),
+                var(--bg);
+            color: var(--ink);
+            display: grid;
+            place-items: center;
+            padding: 2rem;
+        }
+
+        .shell {
+            width: min(100%, 900px);
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 2rem;
+            box-shadow: 0 30px 80px rgba(30, 41, 59, 0.12);
+        }
+
+        .topline {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2rem, 3vw, 3rem);
+        }
+
+        p {
+            margin: 0.5rem 0 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.95rem 1.3rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #eff6ff;
+            color: var(--accent-2);
+            border-color: #bfdbfe;
+        }
+
+        .btn-danger {
+            background: #fff1f2;
+            color: var(--danger);
+            border-color: #fecdd3;
+        }
+
+        .notice {
+            margin-top: 1rem;
+            padding: 1rem 1.2rem;
+            border-radius: 18px;
+            background: #f8fafc;
+            color: var(--muted);
+        }
+
+        .messages {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .message {
+            padding: 0.9rem 1rem;
+            border-radius: 14px;
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <div class="panel">
+            <div class="topline">
+                <div>
+                    <h1>Welcome, {{ request.user.get_username }}</h1>
+                    <p>Student dashboard for exam form access and account actions.</p>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-primary" href="{% url 'exam_form' %}">Fill Exam Form</a>
+                    <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="notice">
+                Start by clicking Fill Exam Form, then submit the student details requested by the school.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
